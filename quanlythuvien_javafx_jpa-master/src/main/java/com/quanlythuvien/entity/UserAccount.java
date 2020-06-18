@@ -28,6 +28,16 @@ public class UserAccount {
         this.active = active;
     }
 
+    public UserAccount( String userName, String email, //
+                       String firstName, String lastName, boolean active) {
+
+        this.userName = userName;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+    }
+
     public Long getId() {
         return id;
     }

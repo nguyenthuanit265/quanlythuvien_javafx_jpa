@@ -3,7 +3,9 @@ package com.quanlythuvien;
 import com.quanlythuvien.main.MainController;
 import com.quanlythuvien.repository.BookRepository;
 import com.quanlythuvien.repository.EmployeeRepository;
+import com.quanlythuvien.repository.UserAccountRepository;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,11 +19,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class QuanLyThuVienJavafxJpaApplication extends Application {
     private ConfigurableApplicationContext springContext;
     private Parent root;
-
-    //    public static void main(String[] args) {
-    //        SpringApplication.run(QuanLyThuVienJavafxJpaApplication.class, args);
-    //        Application.launch(Main.class, args);
-    //    }
+    FXMLLoader fxmlLoader = null;
+    private ObservableList data;
 
     public static void main(String[] args) {
         launch(QuanLyThuVienJavafxJpaApplication.class, args);
@@ -37,11 +36,12 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
                         AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,
                         true
                 );
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+        fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
         root = fxmlLoader.load();
         springContext.getBean(BookRepository.class);
         springContext.getBean(EmployeeRepository.class);
+        springContext.getBean(UserAccountRepository.class);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
         primaryStage.setMinHeight(720.0);
         primaryStage.show();
 
-//        MainController mainController = fxmlLoader.getController();
-//        mainController.populateTableViewBooks();
+        MainController mainController = fxmlLoader.getController();
+        data = mainController.populateTableViewBooks();
 
     }
 

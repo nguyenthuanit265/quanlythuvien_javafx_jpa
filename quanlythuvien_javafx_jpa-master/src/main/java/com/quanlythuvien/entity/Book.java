@@ -91,5 +91,18 @@ public class Book {
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", yearPublished='" + yearPublished + '\'' +
+                ", ISBN='" + ISBN + '\'' +
+                '}';
+    }
 }
 
