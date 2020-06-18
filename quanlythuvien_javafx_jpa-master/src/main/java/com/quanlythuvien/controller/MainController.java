@@ -1,4 +1,4 @@
-package com.quanlythuvien.main;
+package com.quanlythuvien.controller;
 
 import com.quanlythuvien.entity.Book;
 import com.quanlythuvien.entity.Employee;
@@ -32,6 +32,7 @@ public class MainController implements Initializable {
     public Button btnDeleteBook;
     public Button btnRefreshBooks;
     public TableView tableViewBooks;
+    private ObservableList<Book> listBooks;
 
     public Button getBtnSearchBook() {
         return btnSearchBook;
@@ -81,13 +82,13 @@ public class MainController implements Initializable {
     @FXML
     private Button btn_submit;
 
-    @PostConstruct
-    public void contruct() {
+//    @PostConstruct
+//    public void contruct() {
 //        Book book = new Book("Việt Nam Sử Lược", "Lịch sử",
 //                "Trần Trọng Kim", "Tri thức", "2006", "128978");
 //        bookRepository.save(book);
-
-    }
+//
+//    }
 
     public MainController() {
 
@@ -103,32 +104,54 @@ public class MainController implements Initializable {
 //    }
 
 
-    public ObservableList populateTableViewBooks() {
+    public void populateTableViewBooks() {
         //txtfldSearchBook.setText(Double.toString(btnAddBook.getHeight()));
+        if (listBooks != null && listBooks.size() != 0) {
+            listBooks.removeAll();
+        }
+
         List<Book> books = bookRepository.findAll();
-//        for (Book book : books) {
-//            System.out.println(book.toString());
-//        }
+        listBooks = FXCollections.observableList(books);
 
-        ObservableList data = FXCollections.observableList(books);
-        return data;
+        tableViewBooks.setItems(listBooks);
+    }
 
-//        List<Book> bookObservableList = tableViewBooks.getItems();
-//        bookObservableList.add(new Book() {
-//            {
-//                name = "Freakonomics";
-//                category = "Kinh tế";
-//                author = "Levitt & Dubner";
-//                publisher = "Harper";
-//            }
-//        });
-//        bookObservableList.add(new Book() {
-//            {
-//                name = "Chủ nghĩa khắc kỷ";
-//                author = "William B. Irvine";
-//            }
-//        });
+    public void addSomeBooksToTableView(ActionEvent actionEvent) {
+        listBooks.add(new Book() {
+            {
+                name = "Toi Tai Gioi";
+                category = "Self-Help";
+                author = "somebody";
+                publisher = "tre";
+                yearPublished = "2010";
+            }
+        });
 
+        listBooks.add(new Book() {
+            {
+                name = "Cafe voi Tony";
+                category = "Self-Help";
+                author = "Tony BS";
+                publisher = "tre";
+                yearPublished = "2011";
+            }
+        });
+
+        listBooks.add(new Book() {
+            {
+                name = "Freakonomics";
+                category = "Kinh tế";
+                author = "Levitt & Dubner";
+                publisher = "Harper";
+            }
+        });
+
+        listBooks.add(new Book() {
+            {
+                name = "Chủ nghĩa khắc kỷ";
+                author = "William B. Irvine";
+            }
+        });
     }
 
     public void addNewBook(ActionEvent actionEvent) throws IOException {

@@ -1,6 +1,6 @@
 package com.quanlythuvien;
 
-import com.quanlythuvien.main.MainController;
+import com.quanlythuvien.controller.MainController;
 import com.quanlythuvien.repository.BookRepository;
 import com.quanlythuvien.repository.EmployeeRepository;
 import com.quanlythuvien.repository.UserAccountRepository;
@@ -18,9 +18,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class QuanLyThuVienJavafxJpaApplication extends Application {
     private ConfigurableApplicationContext springContext;
-    private Parent root;
+    Parent root;
     FXMLLoader fxmlLoader = null;
-    private ObservableList data;
 
     public static void main(String[] args) {
         launch(QuanLyThuVienJavafxJpaApplication.class, args);
@@ -36,9 +35,9 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
                         AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,
                         true
                 );
-        fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
-        fxmlLoader.setControllerFactory(springContext::getBean);
-        root = fxmlLoader.load();
+//        fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+//        fxmlLoader.setControllerFactory(springContext::getBean);
+//        root = fxmlLoader.load();
         springContext.getBean(BookRepository.class);
         springContext.getBean(EmployeeRepository.class);
         springContext.getBean(UserAccountRepository.class);
@@ -50,16 +49,19 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
 //                getResource("/main.fxml"));
 //        root = fxmlLoader.load();
 //        fxmlLoader.setControllerFactory(springContext::getBean);
+        fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(560.0);
         primaryStage.setMinHeight(720.0);
+        primaryStage.setTitle("Library Manager");
         primaryStage.show();
 
         MainController mainController = fxmlLoader.getController();
-        data = mainController.populateTableViewBooks();
-
+        mainController.populateTableViewBooks();
     }
 
     @Override
