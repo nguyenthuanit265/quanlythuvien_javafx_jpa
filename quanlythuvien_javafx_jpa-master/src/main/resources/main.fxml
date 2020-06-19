@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.quanlythuvien.entity.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
+<?language javascript?>
 
-<BorderPane minHeight="600.0" minWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuvien.controller.MainController">
+<BorderPane fx:id="mainBorderPane" minHeight="600.0" minWidth="720.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quanlythuvien.controller.MainController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu text="File">
                     <items>
-                        <MenuItem text="Exit" />
+                        <MenuItem onAction="#clickMenuItemExit" text="Exit"/>
                     </items>
                 </Menu>
 
@@ -29,32 +29,39 @@
         <TabPane prefHeight="600.0" prefWidth="740.0" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE">
             <Tab text=" Sách ">
                 <AnchorPane>
-                    <ButtonBar buttonMinWidth="50.0" maxWidth="Infinity" prefHeight="40.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="5.0">
+                    <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" AnchorPane.rightAnchor="98.0"
+                               AnchorPane.topAnchor="7.0">
                         <buttons>
-                            <Button fx:id="btnSearchBook" onAction="#addSomeBooksToTableView" prefHeight="26.0" text="Tìm" />
-                            <Button fx:id="btnAddBook" onAction="#addNewBook" prefHeight="26.0" text="Thêm" />
-                            <Button fx:id="btnEditBook" prefHeight="26.0" text="Sửa" />
-                            <Button fx:id="btnDeleteBook" prefHeight="26.0" text="Xóa" />
+                            <Button fx:id="btnSearchBook" prefHeight="26.0" text="Tìm"/>
+                            <Button fx:id="btnAddBook" onAction="#addNewBook" prefHeight="26.0" text="Thêm"/>
+                            <Button fx:id="btnEditBook" prefHeight="26.0" text="Sửa"/>
+                            <Button fx:id="btnDeleteBook" onAction="#deleteBook" prefHeight="26.0" text="Xóa"/>
                         </buttons>
                     </ButtonBar>
-                    <Button fx:id="btnRefreshBooks" prefHeight="26.0" prefWidth="142.0" text="Làm mới danh sách" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="12.0" />
+                    <Button fx:id="btnRefreshBooks" onAction="#refreshBookList" prefHeight="26.0" text="Làm mới"
+                            AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="12.0"/>
 
-                    <TextField fx:id="txtfldSearchBook" prefHeight="28.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="404.0" AnchorPane.topAnchor="12.0" />
-                    <TableView fx:id="tableViewBooks" editable="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                    <TextField fx:id="txtfldSearchBook" prefHeight="28.0" AnchorPane.leftAnchor="10.0"
+                               AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="12.0"/>
+                    <TableView fx:id="tableViewBooks" editable="true" AnchorPane.bottomAnchor="10.0"
+                               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                         <columnResizePolicy>
-                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                         </columnResizePolicy>
                         <columns>
-                            <TableColumn text="Mã Sách">
-                                <cellValueFactory><PropertyValueFactory property="id" />
+                            <TableColumn maxWidth="90" minWidth="80" text="Mã Sách">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="id"/>
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn text="Tên Sách">
-                                <cellValueFactory><PropertyValueFactory property="name" />
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="name"/>
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn text="Thể loại">
-                                <cellValueFactory><PropertyValueFactory property="category" />
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="category"/>
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn text="Tác giả">
@@ -66,16 +73,21 @@
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn text="Năm XB">
-                                <cellValueFactory><PropertyValueFactory property="yearPublished" />
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="yearPublished"/>
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn text="ISBN">
-                                <cellValueFactory><PropertyValueFactory property="ISBN" />
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="ISBN"/>
                                 </cellValueFactory>
                             </TableColumn>
                         </columns>
 
                     </TableView>
+                    <fx:script>
+                        tableViewBooks.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+                         </fx:script>
                 </AnchorPane>
             </Tab>
         </TabPane>
@@ -83,3 +95,4 @@
 
 
 </BorderPane>
+

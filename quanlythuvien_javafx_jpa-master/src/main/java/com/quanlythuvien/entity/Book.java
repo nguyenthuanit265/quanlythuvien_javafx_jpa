@@ -3,19 +3,20 @@ package com.quanlythuvien.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="book")
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String name;
-    public String category;
-    public String author;
-    public String publisher;
-    public String yearPublished;
-    public String ISBN;
+    int id;
+    String name;
+    String category;
+    String author;
+    String publisher;
+    String yearPublished;
+    String ISBN;
 
-    public Book() {}
+    public Book() {
+    }
 
     public Book(int id, String name, String category, String author, String publisher, String yearPublished, String ISBN) {
         this.id = id;

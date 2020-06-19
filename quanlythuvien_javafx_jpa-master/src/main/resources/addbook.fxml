@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="addBookDialogPane" fx:controller="com.quanlythuvien.controller.AddBookController">
+    <headerText>
+        Nhập tên, thể loại, tác giả, nhà xuất bản, năm xuất bản và ISBN của sách
+    </headerText>
+    <content>
+        <AnchorPane prefHeight="200.0" prefWidth="480.0">
+            <Label text="ID" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="20.0"/>
+            <TextField fx:id="txtfldID" prefWidth="160.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0"/>
+            <Label text="Name" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="60.0"/>
+            <TextField fx:id="txtfldName" prefWidth="160.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="60.0"/>
+            <Label text="Category" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="100.0"/>
+            <TextField fx:id="txtfldCategory" prefWidth="160.0" AnchorPane.leftAnchor="80.0"
+                       AnchorPane.topAnchor="100.0"/>
+            <Label text="Author" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="140.0"/>
+            <TextField fx:id="txtfldAuthor" prefWidth="160.0" AnchorPane.leftAnchor="80.0"
+                       AnchorPane.topAnchor="140.0"/>
+
+            <Label text="Publisher" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="20.0"/>
+            <TextField fx:id="txtfldPublisher" prefWidth="160.0" AnchorPane.rightAnchor="10.0"
+                       AnchorPane.topAnchor="20.0"/>
+            <Label text="Year Published" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="60.0"/>
+            <TextField fx:id="txtfldYearPublished" prefWidth="160.0" AnchorPane.rightAnchor="10.0"
+                       AnchorPane.topAnchor="60.0"/>
+            <Label text="ISBN" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="100.0"/>
+            <TextField fx:id="txtfldISBN" prefWidth="160.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0"/>
+        </AnchorPane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:constant="OK"/>
+        <ButtonType fx:constant="CANCEL"/>
+    </buttonTypes>
+
+</DialogPane>

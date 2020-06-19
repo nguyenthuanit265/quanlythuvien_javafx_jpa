@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +18,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class QuanLyThuVienJavafxJpaApplication extends Application {
+
     private ConfigurableApplicationContext springContext;
     Parent root;
     FXMLLoader fxmlLoader = null;
@@ -54,9 +56,10 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
         root = fxmlLoader.load();
 
         Scene scene = new Scene(root);
+
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(560.0);
-        primaryStage.setMinHeight(720.0);
+        primaryStage.setMinWidth(720.0);
+        primaryStage.setMinHeight(600.0);
         primaryStage.setTitle("Library Manager");
         primaryStage.show();
 
