@@ -5,16 +5,18 @@ import com.quanlythuvien.repository.BookRepository;
 import com.quanlythuvien.repository.EmployeeRepository;
 import com.quanlythuvien.repository.UserAccountRepository;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Optional;
 
 @SpringBootApplication
 public class QuanLyThuVienJavafxJpaApplication extends Application {
@@ -61,10 +63,25 @@ public class QuanLyThuVienJavafxJpaApplication extends Application {
         primaryStage.setMinWidth(720.0);
         primaryStage.setMinHeight(600.0);
         primaryStage.setTitle("Library Manager");
+        primaryStage.setOnCloseRequest(e -> {
+            if (!showClosingWindowDialog(primaryStage))
+                e.consume();
+        });
         primaryStage.show();
 
         MainController mainController = fxmlLoader.getController();
         mainController.populateTableViewBooks();
+    }
+
+    public static boolean showClosingWindowDialog(Stage stage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exiting..");
+        alert.setResizable(false);
+        alert.setContentText("Are you sure you want to quit?");
+        alert.initOwner(stage);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return (result.isPresent() && result.get() == ButtonType.OK);
     }
 
     @Override

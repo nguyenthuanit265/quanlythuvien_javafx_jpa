@@ -18,7 +18,7 @@
 
                 <Menu text="Help">
                     <items>
-                        <MenuItem text="About..." />
+                        <MenuItem onAction="#showAboutDialog" text="About..."/>
                     </items>
                 </Menu>
             </menus>
@@ -34,7 +34,7 @@
                         <buttons>
                             <Button fx:id="btnSearchBook" prefHeight="26.0" text="Tìm"/>
                             <Button fx:id="btnAddBook" onAction="#addNewBook" prefHeight="26.0" text="Thêm"/>
-                            <Button fx:id="btnEditBook" prefHeight="26.0" text="Sửa"/>
+                            <Button fx:id="btnEditBook" onAction="#editBook" prefHeight="26.0" text="Sửa"/>
                             <Button fx:id="btnDeleteBook" onAction="#deleteBook" prefHeight="26.0" text="Xóa"/>
                         </buttons>
                     </ButtonBar>
@@ -54,30 +54,50 @@
                                     <PropertyValueFactory property="id"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="Tên Sách">
+                            <TableColumn fx:id="col_name" onEditCommit="#onEditCommit" text="Tên Sách">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
                                 <cellValueFactory>
                                     <PropertyValueFactory property="name"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="Thể loại">
+                            <TableColumn fx:id="col_category" onEditCommit="#onEditCommit" text="Thể loại">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
                                 <cellValueFactory>
                                     <PropertyValueFactory property="category"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="Tác giả">
-                                <cellValueFactory><PropertyValueFactory property="author" />
+                            <TableColumn fx:id="col_author" onEditCommit="#onEditCommit" text="Tác giả">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="author"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="NXB">
-                                <cellValueFactory><PropertyValueFactory property="publisher" />
+                            <TableColumn fx:id="col_publisher" onEditCommit="#onEditCommit" text="NXB">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="publisher"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="Năm XB">
+                            <TableColumn fx:id="col_yearpublished" onEditCommit="#onEditCommit" text="Năm XB">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
                                 <cellValueFactory>
                                     <PropertyValueFactory property="yearPublished"/>
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn text="ISBN">
+                            <TableColumn fx:id="col_isbn" onEditCommit="#onEditCommit" text="ISBN">
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn"/>
+                                </cellFactory>
                                 <cellValueFactory>
                                     <PropertyValueFactory property="ISBN"/>
                                 </cellValueFactory>
@@ -95,4 +115,3 @@
 
 
 </BorderPane>
-

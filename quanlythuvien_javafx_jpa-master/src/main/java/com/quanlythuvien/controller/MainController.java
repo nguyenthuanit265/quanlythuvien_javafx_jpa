@@ -6,6 +6,7 @@ import com.quanlythuvien.entity.Employee;
 import com.quanlythuvien.repository.BookRepository;
 import com.quanlythuvien.repository.EmployeeRepository;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,12 @@ import java.util.ResourceBundle;
 
 @Controller
 public class MainController implements Initializable {
+    public TableColumn<Book, String> col_name;
+    public TableColumn<Book, String> col_category;
+    public TableColumn<Book, String> col_author;
+    public TableColumn<Book, String> col_publisher;
+    public TableColumn<Book, String> col_yearpublished;
+    public TableColumn<Book, String> col_isbn;
     @FXML
     private BorderPane mainBorderPane;
     @FXML
@@ -50,7 +58,7 @@ public class MainController implements Initializable {
     @FXML
     private Button btnRefreshBooks;
     @FXML
-    private TableView tableViewBooks;
+    private TableView<Book> tableViewBooks;
 
     private ObservableList<Book> listBooks;
 
@@ -186,6 +194,29 @@ public class MainController implements Initializable {
         populateTableViewBooks();
     }
 
+    public void editBook(ActionEvent actionEvent) {
+//        ObservableList itemsDelete = tableViewBooks.getSelectionModel().getSelectedItems();
+//        if (itemsDelete.isEmpty()) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setTitle("Chỉnh sửa sách...");
+//            alert.setHeaderText("Chọn ít nhất một cuốn sách để chỉnh sửa");
+//            alert.initOwner(mainBorderPane.getScene().getWindow());
+//            alert.showAndWait();
+//            return;
+//        }
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Xóa sách...");
+//        alert.setResizable(false);
+//        alert.setContentText("Bạn có chắc muốn xóa những sách đã chọn?");
+//        alert.initOwner(mainBorderPane.getScene().getWindow());
+//
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.isPresent() && result.get() == ButtonType.OK) {
+//            bookRepository.deleteAll(itemsDelete);
+//        }
+//        populateTableViewBooks();
+    }
+
     public void deleteBook(ActionEvent actionEvent) {
         ObservableList itemsDelete = tableViewBooks.getSelectionModel().getSelectedItems();
         if (itemsDelete.isEmpty()) {
@@ -220,7 +251,9 @@ public class MainController implements Initializable {
 //        emailColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
 //        ageColumn.setCellValueFactory(new PropertyValueFactory<Student, Integer>("age"));
 //        table.setItems(studentList);
+
     }
+
 
     public void refreshBookList(ActionEvent actionEvent) {
         populateTableViewBooks();
@@ -228,16 +261,43 @@ public class MainController implements Initializable {
 
     public void clickMenuItemExit(ActionEvent actionEvent) {
         Stage mainStage = (Stage) mainBorderPane.getScene().getWindow();
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exiting..");
-        alert.setResizable(false);
-        alert.setContentText("Are you sure you want to quit?");
-        alert.initOwner(mainStage);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (QuanLyThuVienJavafxJpaApplication.showClosingWindowDialog(mainStage)) {
             mainStage.close();
         }
+    }
+
+    public void onEditCommit(TableColumn.CellEditEvent<Book, String> bookStringCellEditEvent) {
+        Book b = bookStringCellEditEvent.getRowValue();
+        TableColumn<Book, String> column = bookStringCellEditEvent.getTableColumn();
+
+        if (column.equals(col_name)) {
+            b.setName(bookStringCellEditEvent.getNewValue());
+        } else if (column.equals(col_category)) {
+            b.setCategory(bookStringCellEditEvent.getNewValue());
+        } else if (column.equals(col_author)) {
+            b.setAuthor(bookStringCellEditEvent.getNewValue());
+        } else if (column.equals(col_publisher)) {
+            b.setPublisher(bookStringCellEditEvent.getNewValue());
+        } else if (column.equals(col_yearpublished)) {
+            b.setYearPublished(bookStringCellEditEvent.getNewValue());
+        } else if (column.equals(col_isbn)) {
+            b.setISBN(bookStringCellEditEvent.getNewValue());
+        }
+
+        bookRepository.updateBookInfo(b.getId(), b.getName(),
+                b.getCategory(), b.getAuthor(), b.getPublisher(),
+                b.getYearPublished(), b.getISBN());
+
+        populateTableViewBooks();
+    }
+
+    public void showAboutDialog(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About...");
+        alert.setResizable(false);
+        alert.setHeaderText("Library Management - JavaFX + Spring Boot + JPA");
+        alert.setContentText("Credits : Minh Thuan & Khanh Hoang");
+        alert.initOwner(mainBorderPane.getScene().getWindow());
+        alert.showAndWait();
     }
 }
